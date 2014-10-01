@@ -1,0 +1,23 @@
+---
+- name: MySQL | Install MySQL Packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - mysql-client-5.5
+  - mysql-server
+  - php5-mysql
+  - libmysqlclient-dev
+  - python-mysqldb
+
+- name: MySQL | Start MySQL Service
+  service: name=mysql state=started enabled=true
+  
+- name: MySQL | Create MySQL User
+  mysql_user: name=vagrant password=vagrant@vagrant priv=*.*:ALL host='%' state=present
+  sudo: true
+
+- name: Create Application Database
+  mysql_db: name=vagrant state=present login_user=vagrant login_password=vagrant@vagrant
+  sudo: true
+
+- name: Restart mySQL
+  service: name=mysql state=restarted

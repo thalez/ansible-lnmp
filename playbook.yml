@@ -1,0 +1,17 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    doc_root: /usr/share/nginx/www
+    server_name: localhost vhostname.local
+  tasks:
+  - include: tasks/init.yml
+  - include: tasks/nginx.yml
+  - include: tasks/php.yml
+  - include: tasks/mysql.yml    
+  handlers:
+  - name: restart nginx
+    service: name=nginx state=restarted
+
+  - name: restart php5-fpm
+    service: name=php5-fpm state=restarted

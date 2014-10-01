@@ -1,0 +1,13 @@
+---
+- name: init | Update apt
+  apt: update_cache=yes
+
+- name: init | Install Sys Packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+  - curl 
+  - vim
+  - git
+
+- name: init | make sure software-properties-common is installed
+  apt: pkg=software-properties-common state=latest
