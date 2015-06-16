@@ -1,5 +1,5 @@
 ---
-- name: php | Install PHP Packages
+- name: php | Install PHP Packages including fpm
   apt: pkg={{ item }} state=latest
   with_items:
   - php5
@@ -10,9 +10,6 @@
   - php5-curl 
   - php5-gd
   - php5-mysql
-
-- name: nginx | Install php5-fpm
-  apt: pkg=php5-fpm state=latest
 
 - name: PHP | php5-fpm php.ini set pathinfo = 0
   lineinfile: dest=/etc/php5/fpm/php.ini regexp='^cgi.fix_pathinfo = 1' line='cgi.fix_pathinfo = 0' backup=yes
